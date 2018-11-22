@@ -1,6 +1,12 @@
 from django.http import HttpResponse
-from django.shortcuts import render_to_response, render
 from django.template import Template, Context, RequestContext
+import base64
+import csv
+import dateutil.parser as parser
+from apiclient import discovery
+from bs4 import BeautifulSoup
+from httplib2 import Http
+from oauth2client import file, client, tools
 
 
 def index(request):
@@ -24,24 +30,14 @@ def request_page(request):
 
 
 def submit(request):
-    # print("Hello Deepak")
-    # render_to_response("/Users/user/Desktop/gmail/mysite/templates/selected_path.html", RequestContext(request, {}))
     if request.GET.get('mybtn'):
         counter = "Hello Deepak"
         print(counter)
-    # return render_to_response('selected_path.html')
-    import base64
-    import csv
-    import dateutil.parser as parser
-    from apiclient import discovery
-    from bs4 import BeautifulSoup
-    from httplib2 import Http
-    from oauth2client import file, client, tools
-
     # Creating a storage.JSON file with authentication details
     SCOPES = 'https://www.googleapis.com/auth/gmail.modify'
+    # SCOPES = 'https://www.googleapis.com/auth/gmail.modify'
     pa = '/Users/user/Desktop/gmail/mysite/credentials.json'
-    store = file.Storage('/Users/user/Desktop/gmail/mysite/storage.json')
+    store = file.Storage('storage.json')
     creds = store.get()
     if not creds or creds.invalid:
         flow = client.flow_from_clientsecrets(pa, SCOPES)
@@ -139,3 +135,7 @@ def submit(request):
         for val in final_list:
             writer.writerow(val)
     return HttpResponse(final_list)
+
+
+def submit_geo():
+    return HttpResponse("hello")
