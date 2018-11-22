@@ -5,9 +5,11 @@
     <title>Hello</title>
 </head>
 <body>
-    <form action="submit" method="GET"> {% csrf_token %} {{ form.as_p }}
-        <input type="text" name="info"><br>
+    <form action="submit" method="GET">
         <input type="submit" value="Submit">
+    </form>
+    <form action="submit_geo" method="GET">
+        <input type="submit" value="Geo Location">
     </form>
 </body>
 </html>
